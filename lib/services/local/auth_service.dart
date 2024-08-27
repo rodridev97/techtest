@@ -1,10 +1,11 @@
-import '../../config/config.dart' show SharedPref;
+import '../../config/config.dart' show EncryptionUtil, SharedPref;
 import '../service.dart' show UserService;
 import '../../models/models.dart' show User;
 
 class AuthService {
   static final serv = AuthService._();
   final userServ = UserService.serv;
+  final _dencryptionHelper = EncryptionUtil();
   User? _currentUser;
 
   AuthService._();
@@ -26,10 +27,9 @@ class AuthService {
       }
 
       // Crea un nuevo usuario y lo guarda en la base de datos
-      final newUser =
+      final User newUser =
           User(username: username, email: email, password: password);
       await userServ.addUsuario(newUser);
-      // Save in SharedPref
       _currentUser = newUser;
       return newUser;
     } catch (e) {
@@ -59,7 +59,6 @@ class AuthService {
         throw Exception('No existe ninguna cuenta con estas credenciales');
       }
     } catch (e) {
-      print("Error en signIn: $e");
       rethrow;
     }
   }

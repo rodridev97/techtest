@@ -1,11 +1,31 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../config/config.dart' show SharedPref;
 import '../../../services/service.dart' show Contact, ContactService;
 import '../../user/user.dart' show User;
 export '../../../services/service.dart' show Contact;
+
+// Provider que obtiene los contactos del dispositivo
+final deviceContactsProvider = FutureProvider<Iterable<Contact>>((ref) async {
+  // Primero pedimos permiso para acceder a los contactos
+  PermissionStatus permissionStatus = await Permission.contacts.status;
+  if (permissionStatus != PermissionStatus.granted) {
+    permissionStatus = await Permission.contacts.request();
+  }
+
+  if (permissionStatus == PermissionStatus.granted) {
+    final userSession = User.fromJson(SharedPref.pref.sessionUser);
+    // Si el permiso es concedido, obtenemos los contactos
+    return await ContactService.contactServ
+        .getContacts(userId: userSession.id ?? -1);
+  } else {
+    // Si no se concede el permiso, devolvemos una lista vacía
+    return [];
+  }
+});
 
 final contactProvider = AsyncNotifierProvider<ContactNotifier, List<Contact>>(
     () => ContactNotifier.new(service: ContactService.contactServ));

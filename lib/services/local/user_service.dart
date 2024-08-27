@@ -1,4 +1,4 @@
-import '../../config/config.dart' show Strings;
+import '../../config/config.dart' show EncryptionUtil, Strings;
 import '../../models/models.dart' show User;
 import '../service.dart' show LocalDatabaseService;
 
@@ -6,6 +6,7 @@ class UserService {
   UserService._();
 
   static final serv = UserService._();
+  final EncryptionUtil encrypt = EncryptionUtil();
 
   // Métodos para Usuario
 

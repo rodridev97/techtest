@@ -24,6 +24,9 @@ class SharedPref {
 
   bool get allowNotifications => preferences?.getBool('notification') ?? false;
 
+  bool get isBiometricEnrolled =>
+      preferences?.getBool('biometric_enrolled') ?? false;
+
   Map<String, dynamic> get sessionUser =>
       json.jsonDecode(preferences?.getString('sessionUser') ?? '{}')
           as Map<String, dynamic>;
@@ -32,6 +35,8 @@ class SharedPref {
   set operateCurrency(String newCurrency) =>
       preferences?.setString('operationCurrency', newCurrency);
   set showApp(bool flag) => preferences?.setBool('showApp', flag);
+  set isBiometricEnrolled(bool flag) =>
+      preferences?.setBool('biometric_enrolled', flag);
   set isRememberCredential(bool flag) =>
       preferences?.setBool('isRememberCredential', flag);
   set loginCredential(List<String> credentials) =>

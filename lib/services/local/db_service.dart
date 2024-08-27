@@ -26,7 +26,7 @@ class LocalDatabaseService {
 
     return await openDatabase(
       path,
-      version: 3,
+      version: 4,
       onCreate: _onCreate,
     );
   }
@@ -49,6 +49,7 @@ class LocalDatabaseService {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
         code REAL,
+        phone TEXT,
         user_id INTEGER,
         FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE
       )

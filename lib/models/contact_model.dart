@@ -6,12 +6,14 @@ class Contact {
   final String? name;
   final String? codeId;
   final int? userId;
+  final String? phone;
 
   const Contact({
     this.id,
     this.name,
     this.codeId,
     this.userId,
+    this.phone,
   });
 
   Contact copyWith({
@@ -19,12 +21,14 @@ class Contact {
     String? name,
     String? codeId,
     int? userId,
+    String? phone,
   }) =>
       Contact(
         id: id ?? this.id,
         name: name ?? this.name,
         codeId: codeId ?? this.codeId,
         userId: userId ?? this.userId,
+        phone: phone ?? this.phone,
       );
 
   factory Contact.fromJson(Map<String, dynamic> json) => Contact(
@@ -32,6 +36,7 @@ class Contact {
         name: json["name"],
         codeId: json["code"].toString(),
         userId: json["user_id"],
+        phone: json["phone"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -39,5 +44,6 @@ class Contact {
         "name": name,
         "code": double.parse(codeId.toString()),
         "user_id": userId,
+        "phone": phone,
       };
 }

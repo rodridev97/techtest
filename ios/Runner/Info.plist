@@ -49,5 +49,7 @@
 	<string>Necesitamos acceso a tu galería para seleccionar una imagen de perfil.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Necesitamos acceso para guardar la imagen de perfil en tu galería.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Why is my app authenticating using face id?</string>
 </dict>
 </plist>
